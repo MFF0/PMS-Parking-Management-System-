@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @AllArgsConstructor
 public class LoginController {
-
     private final LoginService loginService;
 
     @PostMapping("/login")

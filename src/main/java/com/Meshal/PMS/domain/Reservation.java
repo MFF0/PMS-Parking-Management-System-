@@ -21,8 +21,8 @@ public class Reservation {
     @Id
     @GeneratedValue
     private int reservationId;
-    private String reservationDate;
-    private String reservationDuration;
+    private Date reservationDate;
+    private long reservationDuration;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
@@ -35,5 +35,7 @@ public class Reservation {
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "reservation")
     private Vehicle vehicle;
     @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "reservation_slot", joinColumns = {@JoinColumn(name = "reservation_fk")},
+    inverseJoinColumns = {@JoinColumn(name = "slot_fk")})
     private Set<Slot> slots = new HashSet<>();
 }

@@ -1,6 +1,7 @@
 package com.Meshal.PMS.domain;
 
 import com.Meshal.PMS.enums.Role;
+import com.Meshal.PMS.enums.UserStatus;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -41,10 +42,11 @@ public class User  {
 
     @Enumerated(EnumType.STRING)
     private Role role;
+    @Enumerated(EnumType.STRING)
+    private UserStatus userStatus = UserStatus.ACTIVE;
 
     @LastModifiedDate
     private Date modifiedDate;
-
 
     @JsonManagedReference
     @OneToMany(mappedBy = "user")

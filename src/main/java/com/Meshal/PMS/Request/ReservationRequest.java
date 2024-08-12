@@ -1,7 +1,6 @@
 package com.Meshal.PMS.Request;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import com.Meshal.PMS.domain.Vehicle;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,14 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 
 public class ReservationRequest {
-    private int reservationId;
-    private int vehicleId;
-    private LocalDateTime startDate;
-    private int numberOfHours;
-    private int slotId;
-    private final LocalDate dateOfreservation = LocalDate.now();
-    private String license_plate;
-    private String reservedSlotType;
-    private LocalDate reservedSlotStartDate;
-    private LocalDate reservedSlotEndDate;
+    private String reservationDate;
+    private long reservationDuration;
+    private Vehicle vehicle;
+
 }

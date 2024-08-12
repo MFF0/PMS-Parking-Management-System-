@@ -5,6 +5,7 @@ import com.Meshal.PMS.Repositories.UserRepository;
 import com.Meshal.PMS.Request.RegisterRequest;
 import com.Meshal.PMS.data.UserData;
 import com.Meshal.PMS.domain.User;
+import com.Meshal.PMS.enums.UserStatus;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -31,5 +32,9 @@ public class UserService {
     }
     public Optional<User> optionalFindUser() {
         return userRepository.findById(userData.getUser().getUserId());
+    }
+    public void setUserStatus(User user, UserStatus userStatus) {
+        user.setUserStatus(userStatus);
+        userRepository.save(user);
     }
 }

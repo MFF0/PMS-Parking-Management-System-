@@ -5,6 +5,7 @@ import com.Meshal.PMS.Repositories.UserRepository;
 import com.Meshal.PMS.Request.LoginRequest;
 import com.Meshal.PMS.Response.LoginResponse;
 import com.Meshal.PMS.domain.User;
+import com.Meshal.PMS.enums.UserStatus;
 import com.Meshal.PMS.exceptions.UserNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +28,9 @@ public class LoginService {
         if(userBox.isPresent() &&
                 BCrypt.verifyer().verify(loginRequest.getPassword().toCharArray(),
                         userBox.get().getPassword()).verified) {
+            if(userBox.get().getUserStatus() != UserStatus.ACTIVE){
+                throw new UserNotFoundException("User is suspended or deleted");
+            }
             String token = genToken(userBox.get());
             return new LoginResponse(token);
         }

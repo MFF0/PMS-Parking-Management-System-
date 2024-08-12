@@ -2,10 +2,7 @@ package com.Meshal.PMS.domain;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -28,11 +25,21 @@ public class Garage {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
     private Date createdDate;
+
+    public Garage(int zipCode, double largeVehicleRate, double smallVehicleRate, double mediumVehicleRate, List<Slot> slots) {
+        this.zipCode = zipCode;
+        this.largeVehicleRate = largeVehicleRate;
+        this.smallVehicleRate = smallVehicleRate;
+        this.mediumVehicleRate = mediumVehicleRate;
+        this.slots = slots;
+    }
+
     @PrePersist
     protected void onCreate() {
         createdDate = new Date();
     }
     private LocalDateTime modifiedDate;
+
     @JsonManagedReference
     @OneToMany(mappedBy = "garage")
     private List<Slot> slots;
