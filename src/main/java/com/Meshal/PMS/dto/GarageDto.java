@@ -15,5 +15,6 @@ public class GarageDto {
     private double largeVehicleRate;
     private double smallVehicleRate;
     private double mediumVehicleRate;
+    private int capacity;
     private List<Slot> slots;
 }

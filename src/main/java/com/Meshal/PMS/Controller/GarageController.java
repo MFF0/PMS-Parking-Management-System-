@@ -1,5 +1,6 @@
 package com.Meshal.PMS.Controller;
 
+import com.Meshal.PMS.Response.GeneralResponse;
 import com.Meshal.PMS.domain.Garage;
 import com.Meshal.PMS.dto.GarageDto;
 import com.Meshal.PMS.security.AuthorizedPMS;
@@ -23,9 +24,11 @@ public class GarageController {
     public ResponseEntity<?> addGarage(@RequestBody GarageDto garageDto) {
         boolean success = garageService.addGarage(garageDto);
         if (success) {
-            return ResponseEntity.status(HttpStatus.OK).build();
+            return ResponseEntity.status(HttpStatus.OK).body(new GeneralResponse(true,
+                    "Added the garage with the following details: " + garageDto.toString()));
         } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new GeneralResponse(false,
+                    "failed to add the garage"));
         }
     }
 

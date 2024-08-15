@@ -34,6 +34,7 @@ public class GarageService {
                     garageDto.getLargeVehicleRate(),
                     garageDto.getSmallVehicleRate(),
                     garageDto.getMediumVehicleRate(),
+                    garageDto.getCapacity(),
                     garageDto.getSlots()));
             return true;
         } catch(Exception e)    {

@@ -2,11 +2,15 @@ package com.Meshal.PMS.service;
 
 import com.Meshal.PMS.Repositories.VehicleRepository;
 import com.Meshal.PMS.Request.VehicleRequest;
+import com.Meshal.PMS.Response.GeneralResponse;
 import com.Meshal.PMS.data.UserData;
 import com.Meshal.PMS.domain.Vehicle;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -17,7 +21,7 @@ public class VehicleService {
     private final VehicleRepository vehicleRepository;
     private final UserData userData;
 
-    public String addVehicle(VehicleRequest vehicleRequest) {
+    public ResponseEntity<?> addVehicle(VehicleRequest vehicleRequest) {
         Vehicle vehicle =
                 Vehicle.builder()
                 .manufacturer(vehicleRequest.getManufacturer())
@@ -29,7 +33,8 @@ public class VehicleService {
         vehicle.setUser(userData.getUser());
         vehicleRepository.save(vehicle);
 
-        return "Successfully added the vehicle for " + userData.getUser().getFirstName();
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(new GeneralResponse(true, "Successfully added the vehicle for " + userData.getUser().getFirstName()));
     }
 
     public List<Vehicle> getAllUserVehicles() {
@@ -51,6 +56,24 @@ public class VehicleService {
 
     public void deleteAllUserVehicles(){
         vehicleRepository.deleteAll(getAllUserVehicles());
+    }
+
+    public ResponseEntity<?> updateVehicle(VehicleRequest updatedVehicle) {
+        Optional<Vehicle> existingVehicle = vehicleRepository.findByVehicleId(updatedVehicle.getVehicleId());
+        if (existingVehicle.isPresent()) {
+            Vehicle vehicle = existingVehicle.get();
+            vehicle.setManufacturer(updatedVehicle.getManufacturer());
+            vehicle.setModel(updatedVehicle.getModel());
+            vehicle.setVehicleType(updatedVehicle.getVehicleType());
+            vehicle.setLicensePlate(updatedVehicle.getLicensePlate());
+            vehicle.setModifiedDate(new Date());
+            vehicleRepository.save(vehicle);
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(new GeneralResponse(true, "Successfully updated the vehicle with ID: " + vehicle.getVehicleId()));
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new GeneralResponse(false, "Couldn't update the vehicle with ID: " + updatedVehicle.getVehicleId()));
+        }
     }
 
 //

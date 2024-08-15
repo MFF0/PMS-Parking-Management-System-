@@ -1,7 +1,7 @@
 package com.Meshal.PMS.Response;
 
-public record UpdateResponse(
+public record GeneralResponse(
         boolean success,
-        String message
+        String customMessage
 ) {
 }

@@ -4,7 +4,9 @@ import com.Meshal.PMS.Request.LoginRequest;
 import com.Meshal.PMS.Response.LoginResponse;
 import com.Meshal.PMS.service.LoginService;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
@@ -16,5 +18,4 @@ public class LoginController {
     public LoginResponse login(@RequestBody LoginRequest loginRequest) {
         return loginService.login(loginRequest);
     }
-
 }
