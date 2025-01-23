@@ -19,34 +19,28 @@ Spring Boot: A framework that simplifies the development of Java applications.
 JPA/Hibernate: For database management and interaction.
 MySQL: The relational database management system used for storing user, vehicle, and reservation data.
 
-Prerequisites:
+Prerequisites: 
+Java 17 or higher,
+Maven,
+MySQL Setup.
 
-Java 17 or higher
-Maven
-MySQL
-Setup
-
-Clone the repository:
-
+Clone the repository: 
 git clone https://github.com/MFF0/PMS.git
-cd PMS
 
 To configure the database:
-
 Create a new MySQL database.
 Update the application.properties file with your database configuration:
 
 spring.application.name=PMS
 spring.datasource.url=jdbc:mysql://localhost:3306/ParkingManagementSys
-spring.datasource.username=your username
-spring.datasource.password= your password
+spring.datasource.username= (your username)
+spring.datasource.password= (your password)
 spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=true
 spring.jpa.hibernate.dialect=org.hibernate.dialect.MySQLDialect
 spring.jpa.hibernate.format_sql=true
 
-To run the application:
-
+To run the application: 
 mvn spring-boot:run
 
 Usage:
